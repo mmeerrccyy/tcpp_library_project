@@ -32,8 +32,8 @@ namespace library_app
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
+            this.username = new System.Windows.Forms.TextBox();
+            this.password = new System.Windows.Forms.MaskedTextBox();
             this.showPasswrd = new System.Windows.Forms.CheckBox();
             this.buttonEnter = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -71,20 +71,20 @@ namespace library_app
             this.label3.TabIndex = 0;
             this.label3.Text = "Password";
             // 
-            // textBox1
+            // username
             // 
-            this.textBox1.Location = new System.Drawing.Point(126, 122);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(224, 20);
-            this.textBox1.TabIndex = 1;
+            this.username.Location = new System.Drawing.Point(126, 122);
+            this.username.Name = "username";
+            this.username.Size = new System.Drawing.Size(224, 20);
+            this.username.TabIndex = 1;
             // 
-            // maskedTextBox1
+            // password
             // 
-            this.maskedTextBox1.Location = new System.Drawing.Point(126, 170);
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(224, 20);
-            this.maskedTextBox1.TabIndex = 2;
-            this.maskedTextBox1.UseSystemPasswordChar = true;
+            this.password.Location = new System.Drawing.Point(126, 170);
+            this.password.Name = "password";
+            this.password.Size = new System.Drawing.Size(224, 20);
+            this.password.TabIndex = 2;
+            this.password.UseSystemPasswordChar = true;
             // 
             // showPasswrd
             // 
@@ -150,13 +150,14 @@ namespace library_app
             this.Controls.Add(this.label4);
             this.Controls.Add(this.buttonEnter);
             this.Controls.Add(this.showPasswrd);
-            this.Controls.Add(this.maskedTextBox1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.password);
+            this.Controls.Add(this.username);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "LoginForm";
             this.Text = "Login";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LoginForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -167,8 +168,8 @@ namespace library_app
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
+        private System.Windows.Forms.TextBox username;
+        private System.Windows.Forms.MaskedTextBox password;
         private System.Windows.Forms.CheckBox showPasswrd;
         private System.Windows.Forms.Button buttonEnter;
         private System.Windows.Forms.Label label4;

@@ -16,7 +16,7 @@ namespace library_app
         public LoginForm()
         {
             InitializeComponent();
-            textBox1.Size = new System.Drawing.Size(224, 26);
+            username.Size = new System.Drawing.Size(224, 26);
             labelError.Visible = false;
         }
 
@@ -24,11 +24,12 @@ namespace library_app
         {
             if (showPasswrd.Checked)
             {
-                maskedTextBox1.UseSystemPasswordChar = false;
+                password.UseSystemPasswordChar = false;
                 showPasswrd.Text = "Hide password";
-            } else
+            }
+            else
             {
-                maskedTextBox1.UseSystemPasswordChar = true;
+                password.UseSystemPasswordChar = true;
                 showPasswrd.Text = "Show password";
             }
         }
@@ -42,7 +43,32 @@ namespace library_app
         }
 
         private void buttonEnter_Click(object sender, EventArgs e)
-        { 
+        {
+            foo.LoginUser(username.Text.ToString(), password.Text.ToString());
+        }
+
+        private void LoginForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (System.Windows.Forms.Application.MessageLoop)
+            {
+
+                if (e.CloseReason == CloseReason.UserClosing)
+                {
+                    DialogResult result = MessageBox.Show("Do you really want to exit?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (result == DialogResult.Yes)
+                    {
+                        System.Windows.Forms.Application.Exit();
+                    }
+                    else
+                    {
+                        e.Cancel = true;
+                    }
+                }
+                else
+                {
+                    System.Environment.Exit(1);
+                }
+            }
         }
     }
 }

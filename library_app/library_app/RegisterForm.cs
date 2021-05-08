@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace library_app
 {
+    
     public partial class RegisterForm : Form
     {
 
@@ -26,11 +27,16 @@ namespace library_app
 
         }
 
+        private void switchToLogin()
+        {
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
+            this.Hide();
+        }
+
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            LoginForm form = new LoginForm();
-            form.Show();
-            this.Close();
+            switchToLogin();
         }
 
         private void buttonRegister_Click(object sender, EventArgs e)
@@ -43,6 +49,7 @@ namespace library_app
                     {
                         labelError.Visible = false;
                         foo.RegisterUser(new_username.Text.ToString(), pass1.Text.ToString());
+                        switchToLogin();
                     }
                     else
                     {
@@ -76,6 +83,29 @@ namespace library_app
                 pass1.UseSystemPasswordChar = true;
                 pass2.UseSystemPasswordChar = true;
                 showPasswrd.Text = "Show password";
+            }
+        }
+
+        private void RegisterForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (System.Windows.Forms.Application.MessageLoop)
+            {
+                if (e.CloseReason == CloseReason.UserClosing)
+                {
+                    DialogResult result = MessageBox.Show("Do you really want to exit?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (result == DialogResult.Yes)
+                    {
+                        System.Windows.Forms.Application.Exit();
+                    }
+                    else
+                    {
+                        e.Cancel = true;
+                    }
+                } 
+            }
+            else
+            {
+                System.Environment.Exit(1);
             }
         }
     }

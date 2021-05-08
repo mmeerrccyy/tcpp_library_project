@@ -56,11 +56,12 @@ namespace library_app
         {
             try
             {
-                connection.openConnection();
                 string query = "INSERT INTO `users` (username, password) VALUES (@username, @password)";
                 MySqlCommand command = new MySqlCommand(query, connection.getConnection());
                 command.Parameters.Add("@username", MySqlDbType.VarChar).Value = username;
                 command.Parameters.Add("@password", MySqlDbType.VarChar).Value = password;
+
+                connection.openConnection();
 
                 if (command.ExecuteNonQuery() == 1)
                 {
@@ -79,6 +80,41 @@ namespace library_app
                 MessageBox.Show(err.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        
+        public int LoginUser(string username, string password)
+        {
+            try
+            {
+                string query = "SELECT role FROM `users` WHERE username = @username AND password = @password";
+                MySqlCommand command = new MySqlCommand(query, connection.getConnection());
+                MySqlDataAdapter adapter = new MySqlDataAdapter();
+                DataTable table = new DataTable("Data Table");
+                command.Parameters.Add("@username", MySqlDbType.VarChar).Value = username;
+                command.Parameters.Add("@password", MySqlDbType.VarChar).Value = password;
 
+                connection.openConnection();
+
+                adapter.SelectCommand = command;
+                adapter.Fill(table);
+
+                connection.Close();
+
+                if (table.Rows.Count == 1)
+                {
+                    MessageBox.Show("User successfully logged in!", "SUCCESS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return 1;
+                }
+                else
+                {
+                    MessageBox.Show("Error!", "FAIL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return 0;
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return 0;
+            }
+        }
     }
 }
