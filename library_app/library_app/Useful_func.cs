@@ -80,8 +80,8 @@ namespace library_app
                 MessageBox.Show(err.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        
-        public int LoginUser(string username, string password)
+
+        public bool LoginUser(string username, string password)
         {
             try
             {
@@ -101,19 +101,36 @@ namespace library_app
 
                 if (table.Rows.Count == 1)
                 {
-                    MessageBox.Show("User successfully logged in!", "SUCCESS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return 1;
+                    //MessageBox.Show("User successfully logged in!" +
+                    //    "\nUsers role: " + table.Rows[0]["role"].ToString(), "SUCCESS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    switch (table.Rows[0]["role"].ToString())
+                    {
+                        case "reader":
+                        case "landlord":
+                            UserForm user_form = new UserForm();
+                            user_form.Show();
+                            break;
+                        case "admin":
+                            AdminForm admin_form = new AdminForm();
+                            admin_form.Show();
+                            break;
+                        case "librarian":
+                            LibrarianForm librarian_form = new LibrarianForm();
+                            librarian_form.Show();
+                            break;
+                    }
+                    return true;
                 }
                 else
                 {
-                    MessageBox.Show("Error!", "FAIL", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return 0;
+                    MessageBox.Show("Incorrect username or password!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
                 }
             }
             catch (Exception err)
             {
                 MessageBox.Show(err.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return 0;
+                return false;
             }
         }
     }

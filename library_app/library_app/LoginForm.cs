@@ -17,7 +17,6 @@ namespace library_app
         {
             InitializeComponent();
             username.Size = new System.Drawing.Size(224, 26);
-            labelError.Visible = false;
         }
 
         private void showPasswrd_CheckedChanged(object sender, EventArgs e)
@@ -44,7 +43,17 @@ namespace library_app
 
         private void buttonEnter_Click(object sender, EventArgs e)
         {
-            foo.LoginUser(username.Text.ToString(), password.Text.ToString());
+            if (password.TextLength> 0 && username.TextLength > 0)
+            {
+                if (foo.LoginUser(username.Text.ToString(), password.Text.ToString()))
+                {
+                    this.Hide();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please, input login and password.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void LoginForm_FormClosing(object sender, FormClosingEventArgs e)
