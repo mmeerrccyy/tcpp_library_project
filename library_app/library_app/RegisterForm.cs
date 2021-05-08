@@ -26,21 +26,6 @@ namespace library_app
 
         }
 
-        //private bool CheckPaswords(string pswd1, string pswd2) 
-        //{
-        //    labelError.Visible = false;
-
-        //    if (pswd1 == pswd2)
-        //    {
-        //        return true;
-        //    } else
-        //    {
-        //        labelError.Visible = true;
-        //        labelError.Text = "Passwords do not match!";
-        //        return false;
-        //    }
-        //}
-
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             LoginForm form = new LoginForm();
@@ -50,14 +35,48 @@ namespace library_app
 
         private void buttonRegister_Click(object sender, EventArgs e)
         {
-            if(foo.CheckPaswords(pass1.Text.ToString(), pass2.Text.ToString()))
+            if (pass1.TextLength > 7 && pass2.TextLength > 7 && new_username.TextLength > 4)
             {
-                labelError.Visible = false;
-                MessageBox.Show("Registered");
-            } else
+                if (foo.CheckPaswords(pass1.Text.ToString(), pass2.Text.ToString()))
+                {
+                    if (!foo.CheckUsername(new_username.Text.ToString()))
+                    {
+                        labelError.Visible = false;
+
+                        MessageBox.Show("Registered");
+                    }
+                    else
+                    {
+                        labelError.Visible = true;
+                        labelError.Text = "Username already in use!";
+                    }
+                }
+                else
+                {
+                    labelError.Visible = true;
+                    labelError.Text = "Passwords do not match!";
+                }
+            }
+            else
             {
-                labelError.Visible = true;
-                labelError.Text = "Passwords do not match!";
+                MessageBox.Show("Min username length: 5" +
+                    "\nMin password length: 8", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void showPasswrd_CheckedChanged(object sender, EventArgs e)
+        {
+            if (showPasswrd.Checked)
+            {
+                pass1.UseSystemPasswordChar = false;
+                pass2.UseSystemPasswordChar = false;
+                showPasswrd.Text = "Hide password";
+            }
+            else
+            {
+                pass1.UseSystemPasswordChar = true;
+                pass2.UseSystemPasswordChar = true;
+                showPasswrd.Text = "Show password";
             }
         }
     }

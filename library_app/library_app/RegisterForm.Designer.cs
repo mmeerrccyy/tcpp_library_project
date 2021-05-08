@@ -115,6 +115,7 @@ namespace library_app
             this.showPasswrd.TabIndex = 5;
             this.showPasswrd.Text = "Show password";
             this.showPasswrd.UseVisualStyleBackColor = true;
+            this.showPasswrd.CheckedChanged += new System.EventHandler(this.showPasswrd_CheckedChanged);
             // 
             // buttonRegister
             // 

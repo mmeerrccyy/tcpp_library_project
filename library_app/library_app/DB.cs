@@ -11,7 +11,7 @@ namespace library_app
 {
     class DB
     {
-        MySqlConnection connection = new MySqlConnection("server=localhost;port=3306;user=root;password=root;database=Books");
+        MySqlConnection connection = new MySqlConnection("server=localhost;port=3306;user=root;password=root;database=library");
 
         public void openConnection()
         {

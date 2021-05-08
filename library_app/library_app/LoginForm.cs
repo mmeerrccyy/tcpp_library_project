@@ -25,9 +25,11 @@ namespace library_app
             if (showPasswrd.Checked)
             {
                 maskedTextBox1.UseSystemPasswordChar = false;
+                showPasswrd.Text = "Hide password";
             } else
             {
                 maskedTextBox1.UseSystemPasswordChar = true;
+                showPasswrd.Text = "Show password";
             }
         }
 
