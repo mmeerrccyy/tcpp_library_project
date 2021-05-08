@@ -26,6 +26,8 @@ namespace library_app
             }
         }
 
+        //==========================REGISTER FUNC=======================================
+
         public bool CheckUsername(string username)
         {
             string query = "SELECT * FROM `users` WHERE `username` = @username";
@@ -81,11 +83,13 @@ namespace library_app
             }
         }
 
+        //==========================================LOGIN FUNC================================================
+
         public bool LoginUser(string username, string password)
         {
             try
             {
-                string query = "SELECT role FROM `users` WHERE username = @username AND password = @password";
+                string query = "SELECT role, username FROM `users` WHERE username = @username AND password = @password";
                 MySqlCommand command = new MySqlCommand(query, connection.getConnection());
                 MySqlDataAdapter adapter = new MySqlDataAdapter();
                 DataTable table = new DataTable("Data Table");
@@ -112,6 +116,7 @@ namespace library_app
                             break;
                         case "admin":
                             AdminForm admin_form = new AdminForm();
+                            admin_form.labelUsername.Text = table.Rows[0]["username"].ToString();
                             admin_form.Show();
                             break;
                         case "librarian":
@@ -133,5 +138,7 @@ namespace library_app
                 return false;
             }
         }
+
+        //=========================================================ADMIN FUNC===================================================
     }
 }
