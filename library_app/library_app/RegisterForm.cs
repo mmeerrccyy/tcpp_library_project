@@ -42,8 +42,7 @@ namespace library_app
                     if (!foo.CheckUsername(new_username.Text.ToString()))
                     {
                         labelError.Visible = false;
-
-                        MessageBox.Show("Registered");
+                        foo.RegisterUser(new_username.Text.ToString(), pass1.Text.ToString());
                     }
                     else
                     {

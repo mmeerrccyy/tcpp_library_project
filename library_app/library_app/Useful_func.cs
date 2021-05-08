@@ -52,5 +52,33 @@ namespace library_app
             }
         }
 
+        public void RegisterUser(string username, string password)
+        {
+            try
+            {
+                connection.openConnection();
+                string query = "INSERT INTO `users` (username, password) VALUES (@username, @password)";
+                MySqlCommand command = new MySqlCommand(query, connection.getConnection());
+                command.Parameters.Add("@username", MySqlDbType.VarChar).Value = username;
+                command.Parameters.Add("@password", MySqlDbType.VarChar).Value = password;
+
+                if (command.ExecuteNonQuery() == 1)
+                {
+                    MessageBox.Show("User successfully registered!", "SUCCESS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Error!", "FAIL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                connection.Close();
+
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
     }
 }
