@@ -439,6 +439,7 @@ namespace library_app
             this.buttonDeleteBook.TabIndex = 6;
             this.buttonDeleteBook.Text = "Delete book";
             this.buttonDeleteBook.UseVisualStyleBackColor = true;
+            this.buttonDeleteBook.Click += new System.EventHandler(this.buttonDeleteBook_Click);
             // 
             // buttonUpdateBookData
             // 
@@ -449,6 +450,7 @@ namespace library_app
             this.buttonUpdateBookData.TabIndex = 6;
             this.buttonUpdateBookData.Text = "Update book data";
             this.buttonUpdateBookData.UseVisualStyleBackColor = true;
+            this.buttonUpdateBookData.Click += new System.EventHandler(this.buttonUpdateBookData_Click);
             // 
             // tabPage2
             // 
@@ -469,6 +471,7 @@ namespace library_app
             this.buttonDeleteAuthor.TabIndex = 6;
             this.buttonDeleteAuthor.Text = "Delete author";
             this.buttonDeleteAuthor.UseVisualStyleBackColor = true;
+            this.buttonDeleteAuthor.Click += new System.EventHandler(this.buttonDeleteAuthor_Click);
             // 
             // buttonClearAuthorInfo
             // 

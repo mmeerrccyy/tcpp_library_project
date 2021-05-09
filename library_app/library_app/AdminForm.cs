@@ -19,6 +19,16 @@ namespace library_app
 
         private static ArrayList ListTitle = new ArrayList();
         private static ArrayList ListAuthorName = new ArrayList();
+        private static ArrayList currentBookTitle = new ArrayList();
+        private static ArrayList currentBookPages = new ArrayList();
+        private static ArrayList currentBookYear = new ArrayList();
+        private static ArrayList currentBookPrice = new ArrayList();
+        private static ArrayList currentBookAuthor = new ArrayList();
+        private static ArrayList currentAuthorName = new ArrayList();
+        private static ArrayList currentAuthorBirthYear = new ArrayList();
+
+        private object id;
+        private object idBook;
 
         public AdminForm()
         {
@@ -88,6 +98,12 @@ namespace library_app
         {
             try
             {
+                currentBookTitle.Clear();
+                currentBookPages.Clear();
+                currentBookPrice.Clear();
+                currentBookYear.Clear();
+                currentBookAuthor.Clear();
+
                 AddAuthorToComboBox();
                 textBoxTitle.Clear();
                 textBoxPrice.Clear();
@@ -106,6 +122,12 @@ namespace library_app
                         textBoxPages.Text = row["pages"].ToString();
                         textBoxPrice.Text = row["price"].ToString();
                         textBoxYear.Text = row["write_year"].ToString();
+
+                        currentBookTitle.Add(row["title"].ToString());
+                        currentBookPages.Add(row["pages"].ToString());
+                        currentBookPrice.Add(row["price"].ToString());
+                        currentBookYear.Add(row["write_year"].ToString());
+                        currentBookAuthor.Add(row["name"].ToString());
                         for (int i = 0; i < comboBoxAddAuthor.Items.Count; i++)
                         {
                             if (comboBoxAddAuthor.Items[i].ToString() == row["name"].ToString())
@@ -133,6 +155,8 @@ namespace library_app
 
             try
             {
+                currentAuthorName.Clear();
+                currentAuthorBirthYear.Clear();
                 textBoxAuthorName.Text = "";
                 textBoxAuthorYear.Text = "";
 
@@ -146,6 +170,8 @@ namespace library_app
                 {
                     while (row.Read())
                     {
+                        currentAuthorName.Add(row["name"].ToString());
+                        currentAuthorBirthYear.Add(row["birth_year"].ToString());
                         textBoxAuthorYear.Text = row["birth_year"].ToString();
                         textBoxAuthorName.Text = row["name"].ToString();
                     }
@@ -191,17 +217,35 @@ namespace library_app
             }
         }
 
-        private void AddBookData(string add_Title, string add_Pages, string add_Price, string add_Year)
+        private void AddBookData(string add_Title, string add_Pages, string add_Price, string add_Year, string add_Name)
         {
             try
             {
+                connection.openConnection();
 
-                string query = "INSERT INTO `books` (title, pages, price, year) VALUES (@title, @pages, @price, @year)";
+                
+                string idAuthor = "SELECT idAuthors FROM `authors` WHERE name = '" + add_Name + "'";
+                MySqlDataReader row;
+                row = connection.ExecuteReader(idAuthor);
+                if (row.HasRows)
+                {
+                    while (row.Read())
+                    {
+                        id = row["idAuthors"].ToString();
+                    }
+                } else
+                {
+                    MessageBox.Show("Author not found");
+                }
+                connection.Close();
+
+                string query = "INSERT INTO `books` (title, pages, price, write_year, Authors_idAuthors) VALUES (@title, @pages, @price, @year, @id)";
                 MySqlCommand command = new MySqlCommand(query, connection.getConnection());
                 command.Parameters.Add("@title", MySqlDbType.VarChar).Value = add_Title;
                 command.Parameters.Add("@pages", MySqlDbType.VarChar).Value = add_Pages;
                 command.Parameters.Add("@price", MySqlDbType.Float).Value = add_Price;
                 command.Parameters.Add("@year", MySqlDbType.Float).Value = add_Year;
+                command.Parameters.Add("@id", MySqlDbType.Float).Value = id;
 
                 connection.openConnection();
 
@@ -229,7 +273,6 @@ namespace library_app
         {
             try
             {
-
                 string query = "INSERT INTO `authors` (name, birth_year) VALUES (@name, @year)";
                 MySqlCommand command = new MySqlCommand(query, connection.getConnection());
                 command.Parameters.Add("@name", MySqlDbType.VarChar).Value = add_Name;
@@ -257,6 +300,99 @@ namespace library_app
 
         }
 
+        private void UpdateBookDate(string add_Title, string add_Pages, string add_Price, string add_Year, string add_Name)
+        {
+            try
+            {
+                connection.openConnection();
+
+                string idAuthor = "SELECT idAuthors FROM `authors` WHERE name = '" + add_Name + "'";
+                MySqlDataReader row;
+                row = connection.ExecuteReader(idAuthor);
+                if (row.HasRows)
+                {
+                    while (row.Read())
+                    {
+                        id = row["idAuthors"].ToString();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Author not found");
+                }
+                connection.Close();
+
+                connection.openConnection();
+
+                MessageBox.Show(currentBookTitle[0].ToString() +
+                    "\n" + currentBookPages[0] +
+                    "\n" + currentBookPrice[0] +
+                    "\n" + currentBookYear[0]);
+
+                string idBooks = "SELECT idBooks FROM `books` WHERE title = '" + currentBookTitle[0].ToString() + "' AND pages = " + currentBookPages[0] + " AND " +
+                    "price = " + currentBookPrice[0] + " AND write_year = " + currentBookYear[0];
+                MySqlDataReader row2;
+                row2 = connection.ExecuteReader(idBooks);
+                if (row2.HasRows)
+                {
+                    while (row2.Read())
+                    {
+                        idBook = row2["idBooks"].ToString();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Book not found");
+                }
+
+                connection.Close();
+
+
+                string query = "UPDATE `books` SET title = @title, pages = @pages, price = @price, write_year = @year, Authors_idAuthors = @id WHERE idBooks = @idBook";
+                MySqlCommand command = new MySqlCommand(query, connection.getConnection());
+                command.Parameters.Add("@title", MySqlDbType.VarChar).Value = add_Title;
+                command.Parameters.Add("@pages", MySqlDbType.VarChar).Value = add_Pages;
+                command.Parameters.Add("@price", MySqlDbType.Float).Value = add_Price;
+                command.Parameters.Add("@year", MySqlDbType.Int64).Value = add_Year;
+                command.Parameters.Add("@id", MySqlDbType.Float).Value = id;
+                command.Parameters.Add("@idBook", MySqlDbType.Float).Value = idBook;
+
+                currentBookTitle.Clear();
+                currentBookPages.Clear();
+                currentBookPrice.Clear();
+                currentBookYear.Clear();
+
+                currentBookTitle.Add(add_Title); 
+                currentBookPages.Add(add_Pages); 
+                currentBookPrice.Add(add_Price); 
+                currentBookYear.Add(add_Year); 
+
+                connection.openConnection();
+
+                if (command.ExecuteNonQuery() == 1)
+                {
+                    MessageBox.Show("Book successfully updated!", "SUCCESS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Error!", "FAIL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                connection.Close();
+
+                AddBookToComboBox();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.ToString());
+            }
+        }
+
+        private void UpdateAuthorDate(string add_Name, string add_Year)
+        {
+
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             LoginForm form = new LoginForm();
@@ -279,6 +415,7 @@ namespace library_app
             if (radioButtonBooks.Checked)
             {
                 AddBookToComboBox();
+                AddAuthorToComboBox();
                 comboBoxBooks.Enabled = true;
                 if (radioButtonEdit.Checked)
                 {
@@ -288,6 +425,34 @@ namespace library_app
             else
             {
                 comboBoxBooks.Enabled = false;
+            }
+        }
+
+        private bool EmptyAuthorFieldsCheck()
+        {
+            if (textBoxAuthorName.TextLength > 3 && textBoxAuthorYear.TextLength == 4)
+            {
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("Min name length: 4" +
+                    "\nInput year.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+        }
+
+        private bool EmptyBookFieldsCheck()
+        {
+            if (textBoxTitle.TextLength > 3 && textBoxPages.TextLength >= 1)
+            {
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("Min title length: 4" +
+                    "\nMin pages length: 1", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
             }
         }
 
@@ -351,14 +516,9 @@ namespace library_app
 
         private void buttonSaveBookData_Click(object sender, EventArgs e)
         {
-            if (textBoxTitle.TextLength > 3 && textBoxPages.TextLength >= 1)
+            if (EmptyBookFieldsCheck())
             {
-                AddBookData(textBoxTitle.Text.ToString(), textBoxPages.Text.ToString(), textBoxPrice.Text.ToString(), textBoxYear.Text.ToString());
-            }
-            else
-            {
-                MessageBox.Show("Min title length: 4" +
-                    "\nMin pages length: 1", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                AddBookData(textBoxTitle.Text.ToString(), textBoxPages.Text.ToString(), textBoxPrice.Text.ToString(), textBoxYear.Text.ToString(), comboBoxAddAuthor.Text.ToString());
             }
         }
 
@@ -384,20 +544,42 @@ namespace library_app
 
         private void buttonAddAuthorData_Click(object sender, EventArgs e)
         {
-            if (textBoxAuthorName.TextLength > 3 && textBoxAuthorYear.TextLength == 4)
+            if (EmptyAuthorFieldsCheck())
             {
                 AddAuthorData(textBoxAuthorName.Text.ToString(), textBoxAuthorYear.Text.ToString());
             }
-            else
+        }
+
+        private void buttonUpdateBookData_Click(object sender, EventArgs e)
+        {
+            if (EmptyBookFieldsCheck())
             {
-                MessageBox.Show("Min name length: 4" +
-                    "\nInput year.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                UpdateBookDate(textBoxTitle.Text.ToString(), textBoxPages.Text.ToString(), textBoxPrice.Text.ToString(), textBoxYear.Text.ToString(), comboBoxAddAuthor.Text.ToString());
+            }
+        }
+
+        private void buttonDeleteBook_Click(object sender, EventArgs e)
+        {
+            if (EmptyBookFieldsCheck())
+            {
+
             }
         }
 
         private void buttonUpdateAuthorData_Click(object sender, EventArgs e)
         {
+            if (EmptyAuthorFieldsCheck())
+            {
 
+            }
+        }
+
+        private void buttonDeleteAuthor_Click(object sender, EventArgs e)
+        {
+            if (EmptyAuthorFieldsCheck())
+            {
+
+            }
         }
     }
 }
