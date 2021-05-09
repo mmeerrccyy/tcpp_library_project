@@ -221,3 +221,13 @@ ADD CONSTRAINT `fk_Books_Authors1`
 
 ALTER TABLE `library`.`authors` 
 CHANGE COLUMN `birth_year` `birth_year` YEAR(4) NULL ;
+
+ALTER TABLE `library`.`books` 
+DROP FOREIGN KEY `fk_Books_Authors1`;
+ALTER TABLE `library`.`books` 
+ADD CONSTRAINT `fk_Books_Authors1`
+  FOREIGN KEY (`Authors_idAuthors`)
+  REFERENCES `library`.`authors` (`idAuthors`)
+  ON DELETE SET NULL
+  ON UPDATE CASCADE;
+

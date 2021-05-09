@@ -24,11 +24,15 @@ namespace library_app
         private static ArrayList currentBookYear = new ArrayList();
         private static ArrayList currentBookPrice = new ArrayList();
         private static ArrayList currentBookAuthor = new ArrayList();
+
         private static ArrayList currentAuthorName = new ArrayList();
         private static ArrayList currentAuthorBirthYear = new ArrayList();
 
         private object id;
         private object idBook;
+        private string get_id;
+        private string get_id2;
+
 
         public AdminForm()
         {
@@ -221,23 +225,7 @@ namespace library_app
         {
             try
             {
-                connection.openConnection();
-
-                
-                string idAuthor = "SELECT idAuthors FROM `authors` WHERE name = '" + add_Name + "'";
-                MySqlDataReader row;
-                row = connection.ExecuteReader(idAuthor);
-                if (row.HasRows)
-                {
-                    while (row.Read())
-                    {
-                        id = row["idAuthors"].ToString();
-                    }
-                } else
-                {
-                    MessageBox.Show("Author not found");
-                }
-                connection.Close();
+                id = GetAuthorID(add_Name);
 
                 string query = "INSERT INTO `books` (title, pages, price, write_year, Authors_idAuthors) VALUES (@title, @pages, @price, @year, @id)";
                 MySqlCommand command = new MySqlCommand(query, connection.getConnection());
@@ -300,20 +288,20 @@ namespace library_app
 
         }
 
-        private void UpdateBookDate(string add_Title, string add_Pages, string add_Price, string add_Year, string add_Name)
+        private string GetAuthorID(string Name)
         {
             try
             {
                 connection.openConnection();
 
-                string idAuthor = "SELECT idAuthors FROM `authors` WHERE name = '" + add_Name + "'";
+                string query = "SELECT idAuthors FROM `authors` WHERE name = '" + Name + "'";
                 MySqlDataReader row;
-                row = connection.ExecuteReader(idAuthor);
+                row = connection.ExecuteReader(query);
                 if (row.HasRows)
                 {
                     while (row.Read())
                     {
-                        id = row["idAuthors"].ToString();
+                        get_id = row["idAuthors"].ToString();
                     }
                 }
                 else
@@ -321,23 +309,30 @@ namespace library_app
                     MessageBox.Show("Author not found");
                 }
                 connection.Close();
+                return get_id;
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.ToString());
+            }
+            return "";
+        }
 
+        private string GetBookID(string Title, string Pages, string Price, string Year)
+        {
+            try
+            {
                 connection.openConnection();
 
-                MessageBox.Show(currentBookTitle[0].ToString() +
-                    "\n" + currentBookPages[0] +
-                    "\n" + currentBookPrice[0] +
-                    "\n" + currentBookYear[0]);
-
-                string idBooks = "SELECT idBooks FROM `books` WHERE title = '" + currentBookTitle[0].ToString() + "' AND pages = " + currentBookPages[0] + " AND " +
-                    "price = " + currentBookPrice[0] + " AND write_year = " + currentBookYear[0];
-                MySqlDataReader row2;
-                row2 = connection.ExecuteReader(idBooks);
-                if (row2.HasRows)
+                string idBooks = "SELECT idBooks FROM `books` WHERE title = '" + Title + "' AND pages = " + Pages + " AND " +
+                    "price = " + Price + " AND write_year = " + Year;
+                MySqlDataReader row;
+                row = connection.ExecuteReader(idBooks);
+                if (row.HasRows)
                 {
-                    while (row2.Read())
+                    while (row.Read())
                     {
-                        idBook = row2["idBooks"].ToString();
+                        get_id2 = row["idBooks"].ToString();
                     }
                 }
                 else
@@ -346,6 +341,23 @@ namespace library_app
                 }
 
                 connection.Close();
+                return get_id2;
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.ToString());
+            }
+            return "";
+
+        }
+
+        private void UpdateBookDate(string add_Title, string add_Pages, string add_Price, string add_Year, string add_Name)
+        {
+            try
+            {
+                id = GetAuthorID(add_Name);
+
+                idBook = GetBookID(currentBookTitle[0].ToString(), currentBookPages[0].ToString(), currentBookPrice[0].ToString(), currentBookYear[0].ToString());
 
 
                 string query = "UPDATE `books` SET title = @title, pages = @pages, price = @price, write_year = @year, Authors_idAuthors = @id WHERE idBooks = @idBook";
@@ -362,10 +374,10 @@ namespace library_app
                 currentBookPrice.Clear();
                 currentBookYear.Clear();
 
-                currentBookTitle.Add(add_Title); 
-                currentBookPages.Add(add_Pages); 
-                currentBookPrice.Add(add_Price); 
-                currentBookYear.Add(add_Year); 
+                currentBookTitle.Add(add_Title);
+                currentBookPages.Add(add_Pages);
+                currentBookPrice.Add(add_Price);
+                currentBookYear.Add(add_Year);
 
                 connection.openConnection();
 
@@ -390,7 +402,97 @@ namespace library_app
 
         private void UpdateAuthorDate(string add_Name, string add_Year)
         {
+            try
+            {
+                id = GetAuthorID(comboBoxAuthors.Text.ToString());
 
+                string query = "UPDATE `authors` SET name = @name, birth_year = @year WHERE idAuthors = @id";
+                MySqlCommand command = new MySqlCommand(query, connection.getConnection());
+                command.Parameters.Add("@name", MySqlDbType.VarChar).Value = add_Name;
+                command.Parameters.Add("@year", MySqlDbType.VarChar).Value = add_Year;
+                command.Parameters.Add("@id", MySqlDbType.Float).Value = id;
+
+                connection.openConnection();
+
+                if (command.ExecuteNonQuery() == 1)
+                {
+                    MessageBox.Show("Author successfully updated!", "SUCCESS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Error!", "FAIL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                connection.Close();
+
+                AddAuthorToComboBox();
+
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.ToString());
+            }
+        }
+
+        private void DeleteBookData(string ID)
+        {
+            try
+            {
+
+                string query = "DELETE FROM `books` WHERE idBooks = @id";
+                MySqlCommand command = new MySqlCommand(query, connection.getConnection());
+                command.Parameters.Add("@id", MySqlDbType.VarChar).Value = ID;
+
+                connection.openConnection();
+                
+                if (command.ExecuteNonQuery() == 1)
+                {
+                    MessageBox.Show("Book successfully deleted!", "SUCCESS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Error!", "FAIL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                connection.Close();
+
+                AddBookToComboBox();
+
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.ToString());
+            }
+        }
+
+        private void DeleteAuthorData(string ID)
+        {
+            try
+            {
+
+                string query = "DELETE FROM `authors` WHERE idAuthors = @id";
+                MySqlCommand command = new MySqlCommand(query, connection.getConnection());
+                command.Parameters.Add("@id", MySqlDbType.VarChar).Value = ID;
+
+                connection.openConnection();
+
+                if (command.ExecuteNonQuery() == 1)
+                {
+                    MessageBox.Show("Author successfully deleted!", "SUCCESS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Error!", "FAIL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                connection.Close();
+
+                AddAuthorToComboBox();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.ToString());
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -560,26 +662,20 @@ namespace library_app
 
         private void buttonDeleteBook_Click(object sender, EventArgs e)
         {
-            if (EmptyBookFieldsCheck())
-            {
-
-            }
+                DeleteBookData(GetBookID(currentBookTitle[0].ToString(), currentBookPages[0].ToString(), currentBookPrice[0].ToString(), currentBookYear[0].ToString()));
         }
 
         private void buttonUpdateAuthorData_Click(object sender, EventArgs e)
         {
             if (EmptyAuthorFieldsCheck())
             {
-
+                UpdateAuthorDate(textBoxAuthorName.Text.ToString(), textBoxAuthorYear.Text.ToString());
             }
         }
 
         private void buttonDeleteAuthor_Click(object sender, EventArgs e)
         {
-            if (EmptyAuthorFieldsCheck())
-            {
-
-            }
+            DeleteAuthorData(GetAuthorID(comboBoxAuthors.Text.ToString()));
         }
     }
 }
