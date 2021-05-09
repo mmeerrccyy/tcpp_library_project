@@ -34,24 +34,44 @@ namespace library_app
             this.buttonLogout = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBoxAuthorYear = new System.Windows.Forms.MaskedTextBox();
+            this.buttonUpdateAuthorData = new System.Windows.Forms.Button();
+            this.buttonAddAuthorData = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBoxAuthorName = new System.Windows.Forms.TextBox();
+            this.buttonAddBookData = new System.Windows.Forms.Button();
+            this.textBoxPrice = new System.Windows.Forms.TextBox();
             this.textBoxPages = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.textBoxTitle = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.radioButtonEdit = new System.Windows.Forms.RadioButton();
             this.radioButtonReadOnly = new System.Windows.Forms.RadioButton();
             this.radioButtonAuthors = new System.Windows.Forms.RadioButton();
             this.radioButtonBooks = new System.Windows.Forms.RadioButton();
+            this.comboBoxAddAuthor = new System.Windows.Forms.ComboBox();
             this.comboBoxAuthors = new System.Windows.Forms.ComboBox();
             this.comboBoxBooks = new System.Windows.Forms.ComboBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBoxYear = new System.Windows.Forms.MaskedTextBox();
+            this.buttonUpdateBookData = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBoxPrice = new System.Windows.Forms.TextBox();
-            this.buttonSaveBookData = new System.Windows.Forms.Button();
+            this.buttonDeleteBook = new System.Windows.Forms.Button();
+            this.buttonClearBookInfo = new System.Windows.Forms.Button();
+            this.radioAddNewBook = new System.Windows.Forms.RadioButton();
+            this.radioUpdateBook = new System.Windows.Forms.RadioButton();
+            this.radioDeleteBook = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -97,18 +117,22 @@ namespace library_app
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.buttonSaveBookData);
+            this.tabPage1.Controls.Add(this.groupBox2);
             this.tabPage1.Controls.Add(this.textBoxPrice);
             this.tabPage1.Controls.Add(this.textBoxPages);
             this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.textBoxTitle);
             this.tabPage1.Controls.Add(this.label3);
+            this.tabPage1.Controls.Add(this.label6);
+            this.tabPage1.Controls.Add(this.label5);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.panel1);
             this.tabPage1.Controls.Add(this.radioButtonAuthors);
             this.tabPage1.Controls.Add(this.radioButtonBooks);
+            this.tabPage1.Controls.Add(this.comboBoxAddAuthor);
             this.tabPage1.Controls.Add(this.comboBoxAuthors);
             this.tabPage1.Controls.Add(this.comboBoxBooks);
+            this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -117,6 +141,98 @@ namespace library_app
             this.tabPage1.Text = "Books DB";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.textBoxAuthorYear);
+            this.groupBox2.Controls.Add(this.buttonUpdateAuthorData);
+            this.groupBox2.Controls.Add(this.buttonAddAuthorData);
+            this.groupBox2.Controls.Add(this.label7);
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.textBoxAuthorName);
+            this.groupBox2.Location = new System.Drawing.Point(261, 187);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(654, 220);
+            this.groupBox2.TabIndex = 9;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Author info";
+            // 
+            // textBoxAuthorYear
+            // 
+            this.textBoxAuthorYear.Enabled = false;
+            this.textBoxAuthorYear.Location = new System.Drawing.Point(309, 18);
+            this.textBoxAuthorYear.Mask = "0000";
+            this.textBoxAuthorYear.Name = "textBoxAuthorYear";
+            this.textBoxAuthorYear.Size = new System.Drawing.Size(147, 20);
+            this.textBoxAuthorYear.TabIndex = 7;
+            this.textBoxAuthorYear.ValidatingType = typeof(int);
+            // 
+            // buttonUpdateAuthorData
+            // 
+            this.buttonUpdateAuthorData.Enabled = false;
+            this.buttonUpdateAuthorData.Location = new System.Drawing.Point(242, 184);
+            this.buttonUpdateAuthorData.Name = "buttonUpdateAuthorData";
+            this.buttonUpdateAuthorData.Size = new System.Drawing.Size(216, 23);
+            this.buttonUpdateAuthorData.TabIndex = 6;
+            this.buttonUpdateAuthorData.Text = "Update author data";
+            this.buttonUpdateAuthorData.UseVisualStyleBackColor = true;
+            // 
+            // buttonAddAuthorData
+            // 
+            this.buttonAddAuthorData.Enabled = false;
+            this.buttonAddAuthorData.Location = new System.Drawing.Point(10, 184);
+            this.buttonAddAuthorData.Name = "buttonAddAuthorData";
+            this.buttonAddAuthorData.Size = new System.Drawing.Size(226, 23);
+            this.buttonAddAuthorData.TabIndex = 6;
+            this.buttonAddAuthorData.Text = "Add new author data";
+            this.buttonAddAuthorData.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label7.Location = new System.Drawing.Point(4, 16);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(51, 20);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "Name";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label8.Location = new System.Drawing.Point(227, 16);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(76, 20);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "Birth year";
+            // 
+            // textBoxAuthorName
+            // 
+            this.textBoxAuthorName.Enabled = false;
+            this.textBoxAuthorName.Location = new System.Drawing.Point(61, 16);
+            this.textBoxAuthorName.Name = "textBoxAuthorName";
+            this.textBoxAuthorName.Size = new System.Drawing.Size(147, 20);
+            this.textBoxAuthorName.TabIndex = 5;
+            // 
+            // buttonAddBookData
+            // 
+            this.buttonAddBookData.Enabled = false;
+            this.buttonAddBookData.Location = new System.Drawing.Point(18, 97);
+            this.buttonAddBookData.Name = "buttonAddBookData";
+            this.buttonAddBookData.Size = new System.Drawing.Size(302, 24);
+            this.buttonAddBookData.TabIndex = 6;
+            this.buttonAddBookData.Text = "Add new book data";
+            this.buttonAddBookData.UseVisualStyleBackColor = true;
+            this.buttonAddBookData.Click += new System.EventHandler(this.buttonSaveBookData_Click);
+            // 
+            // textBoxPrice
+            // 
+            this.textBoxPrice.Enabled = false;
+            this.textBoxPrice.Location = new System.Drawing.Point(751, 40);
+            this.textBoxPrice.Name = "textBoxPrice";
+            this.textBoxPrice.Size = new System.Drawing.Size(147, 20);
+            this.textBoxPrice.TabIndex = 5;
+            // 
             // textBoxPages
             // 
             this.textBoxPages.Enabled = false;
@@ -124,6 +240,16 @@ namespace library_app
             this.textBoxPages.Name = "textBoxPages";
             this.textBoxPages.Size = new System.Drawing.Size(147, 20);
             this.textBoxPages.TabIndex = 5;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label4.Location = new System.Drawing.Point(701, 40);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(44, 20);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Price";
             // 
             // textBoxTitle
             // 
@@ -142,6 +268,26 @@ namespace library_app
             this.label3.Size = new System.Drawing.Size(54, 20);
             this.label3.TabIndex = 4;
             this.label3.Text = "Pages";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label6.Location = new System.Drawing.Point(485, 62);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(57, 20);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "Author";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label5.Location = new System.Drawing.Point(270, 62);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(43, 20);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "Year";
             // 
             // label2
             // 
@@ -214,6 +360,16 @@ namespace library_app
             this.radioButtonBooks.UseVisualStyleBackColor = true;
             this.radioButtonBooks.CheckedChanged += new System.EventHandler(this.radioButtonBooks_CheckedChanged);
             // 
+            // comboBoxAddAuthor
+            // 
+            this.comboBoxAddAuthor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxAddAuthor.Enabled = false;
+            this.comboBoxAddAuthor.FormattingEnabled = true;
+            this.comboBoxAddAuthor.Location = new System.Drawing.Point(548, 64);
+            this.comboBoxAddAuthor.Name = "comboBoxAddAuthor";
+            this.comboBoxAddAuthor.Size = new System.Drawing.Size(350, 21);
+            this.comboBoxAddAuthor.TabIndex = 0;
+            // 
             // comboBoxAuthors
             // 
             this.comboBoxAuthors.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -223,7 +379,7 @@ namespace library_app
             this.comboBoxAuthors.Name = "comboBoxAuthors";
             this.comboBoxAuthors.Size = new System.Drawing.Size(182, 21);
             this.comboBoxAuthors.TabIndex = 0;
-            this.comboBoxAuthors.SelectedIndexChanged += new System.EventHandler(this.comboBoxBooks_SelectedIndexChanged);
+            this.comboBoxAuthors.SelectedIndexChanged += new System.EventHandler(this.comboBoxAuthors_SelectedIndexChanged);
             // 
             // comboBoxBooks
             // 
@@ -236,6 +392,43 @@ namespace library_app
             this.comboBoxBooks.TabIndex = 0;
             this.comboBoxBooks.SelectedIndexChanged += new System.EventHandler(this.comboBoxBooks_SelectedIndexChanged);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.radioDeleteBook);
+            this.groupBox1.Controls.Add(this.radioUpdateBook);
+            this.groupBox1.Controls.Add(this.radioAddNewBook);
+            this.groupBox1.Controls.Add(this.textBoxYear);
+            this.groupBox1.Controls.Add(this.buttonAddBookData);
+            this.groupBox1.Controls.Add(this.buttonClearBookInfo);
+            this.groupBox1.Controls.Add(this.buttonDeleteBook);
+            this.groupBox1.Controls.Add(this.buttonUpdateBookData);
+            this.groupBox1.Location = new System.Drawing.Point(261, 25);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(654, 154);
+            this.groupBox1.TabIndex = 8;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Book info";
+            // 
+            // textBoxYear
+            // 
+            this.textBoxYear.Enabled = false;
+            this.textBoxYear.Location = new System.Drawing.Point(58, 37);
+            this.textBoxYear.Mask = "0000";
+            this.textBoxYear.Name = "textBoxYear";
+            this.textBoxYear.Size = new System.Drawing.Size(147, 20);
+            this.textBoxYear.TabIndex = 7;
+            this.textBoxYear.ValidatingType = typeof(int);
+            // 
+            // buttonUpdateBookData
+            // 
+            this.buttonUpdateBookData.Enabled = false;
+            this.buttonUpdateBookData.Location = new System.Drawing.Point(347, 97);
+            this.buttonUpdateBookData.Name = "buttonUpdateBookData";
+            this.buttonUpdateBookData.Size = new System.Drawing.Size(290, 24);
+            this.buttonUpdateBookData.TabIndex = 6;
+            this.buttonUpdateBookData.Text = "Update book data";
+            this.buttonUpdateBookData.UseVisualStyleBackColor = true;
+            // 
             // tabPage2
             // 
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
@@ -246,34 +439,59 @@ namespace library_app
             this.tabPage2.Text = "Users DB";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // label4
+            // buttonDeleteBook
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label4.Location = new System.Drawing.Point(701, 40);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(44, 20);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Price";
+            this.buttonDeleteBook.Enabled = false;
+            this.buttonDeleteBook.Location = new System.Drawing.Point(18, 124);
+            this.buttonDeleteBook.Name = "buttonDeleteBook";
+            this.buttonDeleteBook.Size = new System.Drawing.Size(302, 24);
+            this.buttonDeleteBook.TabIndex = 6;
+            this.buttonDeleteBook.Text = "Delete book";
+            this.buttonDeleteBook.UseVisualStyleBackColor = true;
             // 
-            // textBoxPrice
+            // buttonClearBookInfo
             // 
-            this.textBoxPrice.Enabled = false;
-            this.textBoxPrice.Location = new System.Drawing.Point(751, 40);
-            this.textBoxPrice.Name = "textBoxPrice";
-            this.textBoxPrice.Size = new System.Drawing.Size(147, 20);
-            this.textBoxPrice.TabIndex = 5;
+            this.buttonClearBookInfo.Enabled = false;
+            this.buttonClearBookInfo.Location = new System.Drawing.Point(347, 124);
+            this.buttonClearBookInfo.Name = "buttonClearBookInfo";
+            this.buttonClearBookInfo.Size = new System.Drawing.Size(290, 24);
+            this.buttonClearBookInfo.TabIndex = 6;
+            this.buttonClearBookInfo.Text = "Clear book info";
+            this.buttonClearBookInfo.UseVisualStyleBackColor = true;
+            this.buttonClearBookInfo.Click += new System.EventHandler(this.buttonClearBookInfo_Click);
             // 
-            // buttonSaveBookData
+            // radioAddNewBook
             // 
-            this.buttonSaveBookData.Enabled = false;
-            this.buttonSaveBookData.Location = new System.Drawing.Point(279, 64);
-            this.buttonSaveBookData.Name = "buttonSaveBookData";
-            this.buttonSaveBookData.Size = new System.Drawing.Size(619, 24);
-            this.buttonSaveBookData.TabIndex = 6;
-            this.buttonSaveBookData.Text = "Save book data";
-            this.buttonSaveBookData.UseVisualStyleBackColor = true;
-            this.buttonSaveBookData.Click += new System.EventHandler(this.buttonSaveBookData_Click);
+            this.radioAddNewBook.AutoSize = true;
+            this.radioAddNewBook.Location = new System.Drawing.Point(18, 69);
+            this.radioAddNewBook.Name = "radioAddNewBook";
+            this.radioAddNewBook.Size = new System.Drawing.Size(94, 17);
+            this.radioAddNewBook.TabIndex = 8;
+            this.radioAddNewBook.TabStop = true;
+            this.radioAddNewBook.Text = "Add new book";
+            this.radioAddNewBook.UseVisualStyleBackColor = true;
+            // 
+            // radioUpdateBook
+            // 
+            this.radioUpdateBook.AutoSize = true;
+            this.radioUpdateBook.Location = new System.Drawing.Point(287, 73);
+            this.radioUpdateBook.Name = "radioUpdateBook";
+            this.radioUpdateBook.Size = new System.Drawing.Size(87, 17);
+            this.radioUpdateBook.TabIndex = 8;
+            this.radioUpdateBook.TabStop = true;
+            this.radioUpdateBook.Text = "Update book";
+            this.radioUpdateBook.UseVisualStyleBackColor = true;
+            // 
+            // radioDeleteBook
+            // 
+            this.radioDeleteBook.AutoSize = true;
+            this.radioDeleteBook.Location = new System.Drawing.Point(552, 70);
+            this.radioDeleteBook.Name = "radioDeleteBook";
+            this.radioDeleteBook.Size = new System.Drawing.Size(83, 17);
+            this.radioDeleteBook.TabIndex = 8;
+            this.radioDeleteBook.TabStop = true;
+            this.radioDeleteBook.Text = "Delete book";
+            this.radioDeleteBook.UseVisualStyleBackColor = true;
             // 
             // AdminForm
             // 
@@ -291,8 +509,12 @@ namespace library_app
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -319,6 +541,24 @@ namespace library_app
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxPrice;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button buttonSaveBookData;
+        private System.Windows.Forms.Button buttonAddBookData;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox comboBoxAddAuthor;
+        private System.Windows.Forms.TextBox textBoxAuthorName;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button buttonAddAuthorData;
+        private System.Windows.Forms.MaskedTextBox textBoxAuthorYear;
+        private System.Windows.Forms.MaskedTextBox textBoxYear;
+        private System.Windows.Forms.Button buttonUpdateAuthorData;
+        private System.Windows.Forms.Button buttonUpdateBookData;
+        private System.Windows.Forms.Button buttonDeleteBook;
+        private System.Windows.Forms.Button buttonClearBookInfo;
+        private System.Windows.Forms.RadioButton radioDeleteBook;
+        private System.Windows.Forms.RadioButton radioUpdateBook;
+        private System.Windows.Forms.RadioButton radioAddNewBook;
     }
 }
