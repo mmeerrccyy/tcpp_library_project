@@ -88,6 +88,7 @@ namespace library_app
         {
             try
             {
+                AddAuthorToComboBox();
                 textBoxTitle.Clear();
                 textBoxPrice.Clear();
                 textBoxPages.Clear();
@@ -224,6 +225,38 @@ namespace library_app
 
         }
 
+        private void AddAuthorData(string add_Name, string add_Year)
+        {
+            try
+            {
+
+                string query = "INSERT INTO `authors` (name, birth_year) VALUES (@name, @year)";
+                MySqlCommand command = new MySqlCommand(query, connection.getConnection());
+                command.Parameters.Add("@name", MySqlDbType.VarChar).Value = add_Name;
+                command.Parameters.Add("@year", MySqlDbType.VarChar).Value = add_Year;
+
+                connection.openConnection();
+
+                if (command.ExecuteNonQuery() == 1)
+                {
+                    MessageBox.Show("Author successfully added!", "SUCCESS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Error!", "FAIL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                connection.Close();
+
+                AddAuthorToComboBox();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.ToString());
+            }
+
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             LoginForm form = new LoginForm();
@@ -245,24 +278,38 @@ namespace library_app
         {
             if (radioButtonBooks.Checked)
             {
-                if (radioButtonEdit.Checked)
-                {
-                    textBoxTitle.Enabled = true;
-                    textBoxPages.Enabled = true;
-                    textBoxPrice.Enabled = true;
-                    textBoxYear.Enabled = true;
-                    buttonAddBookData.Enabled = true;
-                    comboBoxAddAuthor.Enabled = true;
-                }
                 AddBookToComboBox();
                 comboBoxBooks.Enabled = true;
+                if (radioButtonEdit.Checked)
+                {
+                    BlockUnblock(true, false);
+                }
             }
             else
             {
-                comboBoxAddAuthor.ResetText();
                 comboBoxBooks.Enabled = false;
             }
+        }
 
+        private void BlockUnblock(bool book, bool author)
+        {
+            textBoxTitle.Enabled = book;
+            textBoxPages.Enabled = book;
+            textBoxPrice.Enabled = book;
+            textBoxYear.Enabled = book;
+            comboBoxAddAuthor.Enabled = book;
+            buttonAddBookData.Enabled = book;
+            buttonClearBookInfo.Enabled = book;
+            buttonDeleteBook.Enabled = book;
+            buttonUpdateBookData.Enabled = book;
+
+
+            textBoxAuthorYear.Enabled = author;
+            textBoxAuthorName.Enabled = author;
+            buttonAddAuthorData.Enabled = author;
+            buttonClearAuthorInfo.Enabled = author;
+            buttonDeleteAuthor.Enabled = author;
+            buttonUpdateAuthorData.Enabled = author;
         }
 
         private void radioButtonAuthors_CheckedChanged(object sender, EventArgs e)
@@ -271,6 +318,10 @@ namespace library_app
             {
                 AddAuthorToComboBox();
                 comboBoxAuthors.Enabled = true;
+                if (radioButtonEdit.Checked)
+                {
+                    BlockUnblock(false, true);
+                }
             }
             else
             {
@@ -282,16 +333,7 @@ namespace library_app
         {
             if (radioButtonReadOnly.Checked)
             {
-                textBoxTitle.Enabled = false;
-                textBoxPages.Enabled = false;
-                textBoxPrice.Enabled = false;
-                textBoxYear.Enabled = false;
-                comboBoxAddAuthor.Enabled = false;
-                buttonAddBookData.Enabled = false;
-
-                textBoxAuthorYear.Enabled = false;
-                textBoxAuthorName.Enabled = false;
-                buttonAddAuthorData.Enabled = false;
+                BlockUnblock(false, false);
             }
         }
 
@@ -299,31 +341,11 @@ namespace library_app
         {
             if (radioButtonBooks.Checked && radioButtonEdit.Checked)
             {
-                AddAuthorToComboBox();
-                textBoxTitle.Enabled = true;
-                textBoxPages.Enabled = true;
-                textBoxPrice.Enabled = true;
-                textBoxYear.Enabled = true;
-                comboBoxAddAuthor.Enabled = true;
-                buttonAddBookData.Enabled = true;
-
-                textBoxAuthorYear.Enabled = false;
-                textBoxAuthorName.Enabled = false;
-                buttonAddAuthorData.Enabled = false;
+                BlockUnblock(true, false);
             }
             else if (radioButtonAuthors.Checked && radioButtonEdit.Checked)
             {
-                textBoxAuthorYear.Enabled = true;
-                textBoxAuthorName.Enabled = true;
-                buttonAddAuthorData.Enabled = true;
-
-
-                textBoxTitle.Enabled = false;
-                textBoxPages.Enabled = false;
-                textBoxPrice.Enabled = false;
-                textBoxYear.Enabled = false;
-                comboBoxAddAuthor.Enabled = false;
-                buttonAddBookData.Enabled = false;
+                BlockUnblock(false, true);
             }
         }
 
@@ -352,6 +374,30 @@ namespace library_app
         private void comboBoxAuthors_SelectedIndexChanged(object sender, EventArgs e)
         {
             FindInformationAboutAuthor(comboBoxAuthors.Text.ToString());
+        }
+
+        private void buttonClearAuthorInfo_Click(object sender, EventArgs e)
+        {
+            textBoxAuthorName.Text = "";
+            textBoxAuthorYear.Text = "";
+        }
+
+        private void buttonAddAuthorData_Click(object sender, EventArgs e)
+        {
+            if (textBoxAuthorName.TextLength > 3 && textBoxAuthorYear.TextLength == 4)
+            {
+                AddAuthorData(textBoxAuthorName.Text.ToString(), textBoxAuthorYear.Text.ToString());
+            }
+            else
+            {
+                MessageBox.Show("Min name length: 4" +
+                    "\nInput year.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void buttonUpdateAuthorData_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

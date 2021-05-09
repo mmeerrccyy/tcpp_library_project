@@ -41,7 +41,6 @@ namespace library_app
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.textBoxAuthorName = new System.Windows.Forms.TextBox();
-            this.buttonAddBookData = new System.Windows.Forms.Button();
             this.textBoxPrice = new System.Windows.Forms.TextBox();
             this.textBoxPages = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -60,13 +59,13 @@ namespace library_app
             this.comboBoxBooks = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBoxYear = new System.Windows.Forms.MaskedTextBox();
+            this.buttonAddBookData = new System.Windows.Forms.Button();
+            this.buttonClearBookInfo = new System.Windows.Forms.Button();
+            this.buttonDeleteBook = new System.Windows.Forms.Button();
             this.buttonUpdateBookData = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.buttonDeleteBook = new System.Windows.Forms.Button();
-            this.buttonClearBookInfo = new System.Windows.Forms.Button();
-            this.radioAddNewBook = new System.Windows.Forms.RadioButton();
-            this.radioUpdateBook = new System.Windows.Forms.RadioButton();
-            this.radioDeleteBook = new System.Windows.Forms.RadioButton();
+            this.buttonDeleteAuthor = new System.Windows.Forms.Button();
+            this.buttonClearAuthorInfo = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -144,6 +143,8 @@ namespace library_app
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.textBoxAuthorYear);
+            this.groupBox2.Controls.Add(this.buttonClearAuthorInfo);
+            this.groupBox2.Controls.Add(this.buttonDeleteAuthor);
             this.groupBox2.Controls.Add(this.buttonUpdateAuthorData);
             this.groupBox2.Controls.Add(this.buttonAddAuthorData);
             this.groupBox2.Controls.Add(this.label7);
@@ -151,7 +152,7 @@ namespace library_app
             this.groupBox2.Controls.Add(this.textBoxAuthorName);
             this.groupBox2.Location = new System.Drawing.Point(261, 187);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(654, 220);
+            this.groupBox2.Size = new System.Drawing.Size(468, 121);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Author info";
@@ -169,22 +170,24 @@ namespace library_app
             // buttonUpdateAuthorData
             // 
             this.buttonUpdateAuthorData.Enabled = false;
-            this.buttonUpdateAuthorData.Location = new System.Drawing.Point(242, 184);
+            this.buttonUpdateAuthorData.Location = new System.Drawing.Point(237, 51);
             this.buttonUpdateAuthorData.Name = "buttonUpdateAuthorData";
-            this.buttonUpdateAuthorData.Size = new System.Drawing.Size(216, 23);
+            this.buttonUpdateAuthorData.Size = new System.Drawing.Size(219, 23);
             this.buttonUpdateAuthorData.TabIndex = 6;
             this.buttonUpdateAuthorData.Text = "Update author data";
             this.buttonUpdateAuthorData.UseVisualStyleBackColor = true;
+            this.buttonUpdateAuthorData.Click += new System.EventHandler(this.buttonUpdateAuthorData_Click);
             // 
             // buttonAddAuthorData
             // 
             this.buttonAddAuthorData.Enabled = false;
-            this.buttonAddAuthorData.Location = new System.Drawing.Point(10, 184);
+            this.buttonAddAuthorData.Location = new System.Drawing.Point(10, 51);
             this.buttonAddAuthorData.Name = "buttonAddAuthorData";
-            this.buttonAddAuthorData.Size = new System.Drawing.Size(226, 23);
+            this.buttonAddAuthorData.Size = new System.Drawing.Size(219, 23);
             this.buttonAddAuthorData.TabIndex = 6;
             this.buttonAddAuthorData.Text = "Add new author data";
             this.buttonAddAuthorData.UseVisualStyleBackColor = true;
+            this.buttonAddAuthorData.Click += new System.EventHandler(this.buttonAddAuthorData_Click);
             // 
             // label7
             // 
@@ -213,17 +216,6 @@ namespace library_app
             this.textBoxAuthorName.Name = "textBoxAuthorName";
             this.textBoxAuthorName.Size = new System.Drawing.Size(147, 20);
             this.textBoxAuthorName.TabIndex = 5;
-            // 
-            // buttonAddBookData
-            // 
-            this.buttonAddBookData.Enabled = false;
-            this.buttonAddBookData.Location = new System.Drawing.Point(18, 97);
-            this.buttonAddBookData.Name = "buttonAddBookData";
-            this.buttonAddBookData.Size = new System.Drawing.Size(302, 24);
-            this.buttonAddBookData.TabIndex = 6;
-            this.buttonAddBookData.Text = "Add new book data";
-            this.buttonAddBookData.UseVisualStyleBackColor = true;
-            this.buttonAddBookData.Click += new System.EventHandler(this.buttonSaveBookData_Click);
             // 
             // textBoxPrice
             // 
@@ -394,9 +386,6 @@ namespace library_app
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.radioDeleteBook);
-            this.groupBox1.Controls.Add(this.radioUpdateBook);
-            this.groupBox1.Controls.Add(this.radioAddNewBook);
             this.groupBox1.Controls.Add(this.textBoxYear);
             this.groupBox1.Controls.Add(this.buttonAddBookData);
             this.groupBox1.Controls.Add(this.buttonClearBookInfo);
@@ -404,7 +393,7 @@ namespace library_app
             this.groupBox1.Controls.Add(this.buttonUpdateBookData);
             this.groupBox1.Location = new System.Drawing.Point(261, 25);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(654, 154);
+            this.groupBox1.Size = new System.Drawing.Size(654, 134);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Book info";
@@ -419,10 +408,42 @@ namespace library_app
             this.textBoxYear.TabIndex = 7;
             this.textBoxYear.ValidatingType = typeof(int);
             // 
+            // buttonAddBookData
+            // 
+            this.buttonAddBookData.Enabled = false;
+            this.buttonAddBookData.Location = new System.Drawing.Point(18, 69);
+            this.buttonAddBookData.Name = "buttonAddBookData";
+            this.buttonAddBookData.Size = new System.Drawing.Size(302, 24);
+            this.buttonAddBookData.TabIndex = 6;
+            this.buttonAddBookData.Text = "Add new book data";
+            this.buttonAddBookData.UseVisualStyleBackColor = true;
+            this.buttonAddBookData.Click += new System.EventHandler(this.buttonSaveBookData_Click);
+            // 
+            // buttonClearBookInfo
+            // 
+            this.buttonClearBookInfo.Enabled = false;
+            this.buttonClearBookInfo.Location = new System.Drawing.Point(345, 101);
+            this.buttonClearBookInfo.Name = "buttonClearBookInfo";
+            this.buttonClearBookInfo.Size = new System.Drawing.Size(290, 24);
+            this.buttonClearBookInfo.TabIndex = 6;
+            this.buttonClearBookInfo.Text = "Clear book info";
+            this.buttonClearBookInfo.UseVisualStyleBackColor = true;
+            this.buttonClearBookInfo.Click += new System.EventHandler(this.buttonClearBookInfo_Click);
+            // 
+            // buttonDeleteBook
+            // 
+            this.buttonDeleteBook.Enabled = false;
+            this.buttonDeleteBook.Location = new System.Drawing.Point(18, 101);
+            this.buttonDeleteBook.Name = "buttonDeleteBook";
+            this.buttonDeleteBook.Size = new System.Drawing.Size(302, 24);
+            this.buttonDeleteBook.TabIndex = 6;
+            this.buttonDeleteBook.Text = "Delete book";
+            this.buttonDeleteBook.UseVisualStyleBackColor = true;
+            // 
             // buttonUpdateBookData
             // 
             this.buttonUpdateBookData.Enabled = false;
-            this.buttonUpdateBookData.Location = new System.Drawing.Point(347, 97);
+            this.buttonUpdateBookData.Location = new System.Drawing.Point(347, 69);
             this.buttonUpdateBookData.Name = "buttonUpdateBookData";
             this.buttonUpdateBookData.Size = new System.Drawing.Size(290, 24);
             this.buttonUpdateBookData.TabIndex = 6;
@@ -439,59 +460,26 @@ namespace library_app
             this.tabPage2.Text = "Users DB";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // buttonDeleteBook
+            // buttonDeleteAuthor
             // 
-            this.buttonDeleteBook.Enabled = false;
-            this.buttonDeleteBook.Location = new System.Drawing.Point(18, 124);
-            this.buttonDeleteBook.Name = "buttonDeleteBook";
-            this.buttonDeleteBook.Size = new System.Drawing.Size(302, 24);
-            this.buttonDeleteBook.TabIndex = 6;
-            this.buttonDeleteBook.Text = "Delete book";
-            this.buttonDeleteBook.UseVisualStyleBackColor = true;
+            this.buttonDeleteAuthor.Enabled = false;
+            this.buttonDeleteAuthor.Location = new System.Drawing.Point(8, 80);
+            this.buttonDeleteAuthor.Name = "buttonDeleteAuthor";
+            this.buttonDeleteAuthor.Size = new System.Drawing.Size(221, 23);
+            this.buttonDeleteAuthor.TabIndex = 6;
+            this.buttonDeleteAuthor.Text = "Delete author";
+            this.buttonDeleteAuthor.UseVisualStyleBackColor = true;
             // 
-            // buttonClearBookInfo
+            // buttonClearAuthorInfo
             // 
-            this.buttonClearBookInfo.Enabled = false;
-            this.buttonClearBookInfo.Location = new System.Drawing.Point(347, 124);
-            this.buttonClearBookInfo.Name = "buttonClearBookInfo";
-            this.buttonClearBookInfo.Size = new System.Drawing.Size(290, 24);
-            this.buttonClearBookInfo.TabIndex = 6;
-            this.buttonClearBookInfo.Text = "Clear book info";
-            this.buttonClearBookInfo.UseVisualStyleBackColor = true;
-            this.buttonClearBookInfo.Click += new System.EventHandler(this.buttonClearBookInfo_Click);
-            // 
-            // radioAddNewBook
-            // 
-            this.radioAddNewBook.AutoSize = true;
-            this.radioAddNewBook.Location = new System.Drawing.Point(18, 69);
-            this.radioAddNewBook.Name = "radioAddNewBook";
-            this.radioAddNewBook.Size = new System.Drawing.Size(94, 17);
-            this.radioAddNewBook.TabIndex = 8;
-            this.radioAddNewBook.TabStop = true;
-            this.radioAddNewBook.Text = "Add new book";
-            this.radioAddNewBook.UseVisualStyleBackColor = true;
-            // 
-            // radioUpdateBook
-            // 
-            this.radioUpdateBook.AutoSize = true;
-            this.radioUpdateBook.Location = new System.Drawing.Point(287, 73);
-            this.radioUpdateBook.Name = "radioUpdateBook";
-            this.radioUpdateBook.Size = new System.Drawing.Size(87, 17);
-            this.radioUpdateBook.TabIndex = 8;
-            this.radioUpdateBook.TabStop = true;
-            this.radioUpdateBook.Text = "Update book";
-            this.radioUpdateBook.UseVisualStyleBackColor = true;
-            // 
-            // radioDeleteBook
-            // 
-            this.radioDeleteBook.AutoSize = true;
-            this.radioDeleteBook.Location = new System.Drawing.Point(552, 70);
-            this.radioDeleteBook.Name = "radioDeleteBook";
-            this.radioDeleteBook.Size = new System.Drawing.Size(83, 17);
-            this.radioDeleteBook.TabIndex = 8;
-            this.radioDeleteBook.TabStop = true;
-            this.radioDeleteBook.Text = "Delete book";
-            this.radioDeleteBook.UseVisualStyleBackColor = true;
+            this.buttonClearAuthorInfo.Enabled = false;
+            this.buttonClearAuthorInfo.Location = new System.Drawing.Point(237, 80);
+            this.buttonClearAuthorInfo.Name = "buttonClearAuthorInfo";
+            this.buttonClearAuthorInfo.Size = new System.Drawing.Size(219, 23);
+            this.buttonClearAuthorInfo.TabIndex = 6;
+            this.buttonClearAuthorInfo.Text = "Clear author info";
+            this.buttonClearAuthorInfo.UseVisualStyleBackColor = true;
+            this.buttonClearAuthorInfo.Click += new System.EventHandler(this.buttonClearAuthorInfo_Click);
             // 
             // AdminForm
             // 
@@ -557,8 +545,7 @@ namespace library_app
         private System.Windows.Forms.Button buttonUpdateBookData;
         private System.Windows.Forms.Button buttonDeleteBook;
         private System.Windows.Forms.Button buttonClearBookInfo;
-        private System.Windows.Forms.RadioButton radioDeleteBook;
-        private System.Windows.Forms.RadioButton radioUpdateBook;
-        private System.Windows.Forms.RadioButton radioAddNewBook;
+        private System.Windows.Forms.Button buttonClearAuthorInfo;
+        private System.Windows.Forms.Button buttonDeleteAuthor;
     }
 }
