@@ -11,7 +11,7 @@ namespace library_app
 {
     class DB
     {
-        MySqlConnection connection = new MySqlConnection("server=localhost;port=3306;user=root;password=root;database=library");
+        MySqlConnection connection = new MySqlConnection("server=localhost;port=3306;user=root;password=password;database=mydb");
 
         public void openConnection()
         {
@@ -30,57 +30,6 @@ namespace library_app
         {
             connection.Close();
             connection.Dispose();
-        }
-
-        public DataSet ExecuteDataSet(string sql)
-        {
-            try
-            {
-                DataSet ds = new DataSet();
-                MySqlDataAdapter da = new MySqlDataAdapter(sql, connection);
-                da.Fill(ds, "result");
-                return ds;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            return null;
-        }
-
-        public MySqlDataReader ExecuteReader(string sql)
-        {
-            try
-            {
-                MySqlDataReader reader;
-                MySqlCommand cmd = new MySqlCommand(sql, connection);
-                reader = cmd.ExecuteReader();
-                return reader;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            return null;
-        }
-
-        public int ExecuteNonQuery(string sql)
-        {
-            try
-            {
-                int affected;
-                MySqlTransaction mytransaction = connection.BeginTransaction();
-                MySqlCommand cmd = connection.CreateCommand();
-                cmd.CommandText = sql;
-                affected = cmd.ExecuteNonQuery();
-                mytransaction.Commit();
-                return affected;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            return -1;
         }
     }
 }

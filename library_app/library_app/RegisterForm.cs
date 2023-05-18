@@ -45,10 +45,10 @@ namespace library_app
             {
                 if (foo.CheckPaswords(pass1.Text.ToString(), pass2.Text.ToString()))
                 {
-                    if (!foo.CheckUsername(new_username.Text.ToString()))
+                    if (!User.Check_Username(new_username.Text.ToString()))
                     {
                         labelError.Visible = false;
-                        foo.RegisterUser(new_username.Text.ToString(), pass1.Text.ToString());
+                        User.Create_User(new_username.Text.ToString(), pass1.Text.ToString());
                         switchToLogin();
                     }
                     else

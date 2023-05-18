@@ -45,7 +45,7 @@ namespace library_app
         {
             if (password.TextLength> 0 && username.TextLength > 0)
             {
-                if (foo.LoginUser(username.Text.ToString(), password.Text.ToString()))
+                if (User.Login_User(username.Text.ToString(), password.Text.ToString()))
                 {
                     this.Hide();
                 }
